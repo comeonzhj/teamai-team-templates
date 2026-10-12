@@ -1,0 +1,31 @@
+# 岗位（role）定义：决定每个成员的 Agent 收到哪些 skills / rules / agents
+# 成员加入后执行：teamai roles set recruiter（或 hrbp / td / hr-ops，可逗号选多个）
+version: 1
+roles:
+  - id: recruiter
+    description: Recruiter — intake, JD, sourcing, screening, interview coordination, offer
+    resources:
+      knowledge: [recruiter]
+      skills: [common, recruiter]
+      agents: [recruiter]
+
+  - id: hrbp
+    description: HRBP — performance cycle, calibration, feedback, employee relations
+    resources:
+      knowledge: [hrbp]
+      skills: [common, hrbp]
+      agents: [hrbp]
+
+  - id: td
+    description: Talent development — competency model, IDP, training, succession planning
+    resources:
+      knowledge: [td]
+      skills: [common, td]
+      agents: [td]
+
+  - id: hr-ops
+    description: HR operations — onboarding/offboarding, HRIS data, compliance filing
+    resources:
+      knowledge: [hr-ops]
+      skills: [common, hr-ops]
+      agents: []

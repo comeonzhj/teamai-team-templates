@@ -1,0 +1,23 @@
+# 团队 hooks：pull 后自动分发；脚本部署到 ~/.teamai/team-scripts/
+hooks:
+  - id: session-context
+    description: Every session starts from the team's live HR pipeline context
+    event: SessionStart
+    command: 'bash -lc "~/.teamai/team-scripts/session-context.sh"'
+    timeout: 10
+
+  - id: guard-secrets
+    description: Block a tool call that would leak a credential
+    event: PreToolUse
+    matcher: Bash|Write|Edit
+    command: 'bash -lc "~/.teamai/team-scripts/guard-secrets.sh"'
+    timeout: 15
+
+  - id: guard-pii
+    description: Warn loudly when unmasked personal data (ID / phone / bank card / salary) is written
+    event: PreToolUse
+    matcher: Write|Edit
+    command: 'bash -lc "~/.teamai/team-scripts/guard-pii.sh" || true'
+    timeout: 15
+
+# 隐私红线的执行依据是 rules/pii-protection.md（强制规则），hook 只是提醒。

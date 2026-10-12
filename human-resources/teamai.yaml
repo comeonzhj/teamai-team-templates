@@ -1,0 +1,33 @@
+# TeamAI 团队仓库配置 — 人力资源团队
+team: human-resources
+description: >-
+  HR team. Full pipeline context (workforce planning -> JD -> screening -> interview ->
+  offer/onboarding -> performance -> talent development), one contract per role, review
+  agents and privacy/compliance guards.
+repo: https://github.com/your-org/human-resources-teamai.git   # TODO: 改成你的团队仓库地址
+provider: github
+
+reviewers:
+  - hr-lead                     # TODO: PR/MR 审核人
+
+sharing:
+  rules:
+    enforced:                   # 强制规则（隐私与合规不可协商）
+      - collaboration-charter
+      - pii-protection
+      - fairness-compliance
+  docs:
+    localDir: ./.teamai/docs
+  env:
+    injectShellProfile: true
+  gitExclude:
+    enabled: true
+  hooks:
+    autoApply: true
+    requireTeamScripts: true
+  contributeHint:
+    enabled: true
+
+scripts:
+  postPull:
+    path: scripts/deploy-hooks.mjs

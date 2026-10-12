@@ -1,0 +1,19 @@
+# 团队 MCP 服务器：声明一次，pull 后自动写入每个成员的每个 AI 工具。
+# 默认为空，只按需启用 —— 每多一个 server，每位成员每个会话都要多养一个进程。
+# 取消注释并改成你的服务即可：
+servers: []
+# servers:
+#   - name: issue-tracker
+#     description: Issue/requirement tracker queries (Jira / Tapd / TAPD)
+#     transport: http
+#     url: https://your-jira.example.com/mcp
+#     headers:
+#       Authorization: Bearer ${JIRA_TOKEN}   # token 走 env/secrets.yaml + teamai env set JIRA_TOKEN
+#     timeout: 60000
+#
+#   - name: local-formatter
+#     transport: stdio
+#     command: npx
+#     args: ['-y', '@acme/formatter-mcp']
+#     requires: [npx]                          # PATH 里没有 npx 时自动跳过并提示
+#     tools: [claude, cursor]                  # 可选：只发给部分工具
