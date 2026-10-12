@@ -14,6 +14,12 @@ review criteria, structured and synced to everyone's AI tools via
 OpenCode, ...). Data stays in your own Git repo; same role → same contract; one status doc
 every session reads.
 
+## Get the templates
+
+```bash
+git clone https://github.com/comeonzhj/teamai-team-templates
+```
+
 ## Choose a template
 
 | Your team | Template | Pipeline | Roles |
@@ -26,6 +32,8 @@ every session reads.
 ## How to use it (conversation only, no Git skills needed)
 
 1. **Create your team repo** — copy a template to your Git platform (or ask your AI to do it).
+   Placeholders like `your-org/your-repo` in the guides mean "replace with your own
+   organization and repo name".
 2. **Configure by talking** — say "帮我配置团队"; the `team-setup` assistant interviews you,
    extracts team context from whatever material you paste, configures per-role resource
    visibility, and produces a plain-language **Configuration Review Sheet** for sign-off.
@@ -40,3 +48,5 @@ every session reads.
 | this template | context extraction from raw material, role × resource permission design, configuration review sheet | "帮我配置团队" (`team-setup`) |
 
 Delivery record (technical structure, verification): [DELIVERY.md](DELIVERY.md)
+
+License: [MIT](LICENSE)

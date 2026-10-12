@@ -6,6 +6,9 @@
 
 [简体中文](README.md) — the primary, user-facing guide.
 
+
+Template source: [teamai-team-templates](https://github.com/comeonzhj/teamai-team-templates) — run `git clone https://github.com/comeonzhj/teamai-team-templates` and copy this directory. Placeholders like `your-org/your-repo` should be replaced with your own organization and repo name.
+
 ## What it fixes
 
 | Before | After |

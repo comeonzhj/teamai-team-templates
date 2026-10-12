@@ -3,6 +3,9 @@
 > 把团队的流程、规范和项目上下文装进每个人的 AI 工具里。
 > 新成员、新开的 AI 会话，**只要说清自己的岗位，就能从任意阶段开工**——不需要谁再介绍一遍背景。
 
+
+模板来源：[teamai-team-templates](https://github.com/comeonzhj/teamai-team-templates) —— `git clone https://github.com/comeonzhj/teamai-team-templates` 后复制本目录即用。文中 `your-org/your-repo` 之类均为占位符，替换成你们自己的组织与仓库名。
+
 ## 这套模板解决什么问题
 
 | 以前 | 现在 |
