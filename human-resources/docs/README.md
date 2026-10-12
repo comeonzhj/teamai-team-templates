@@ -30,7 +30,7 @@
 
 ## 模板（产出物一律套用）
 
-[`templates/`](templates/)：招聘需求单 · JD · 筛选评分卡 · 面试评分卡 · 绩效评定表 · IDP · 招聘复盘
+[`templates/`](templates/)：招聘需求单 · JD · 筛选评分卡 · 面试评分卡 · 绩效评定表 · IDP · 招聘复盘 · 配置审阅单（新团队先用 `team-setup` skill 生成）
 
 ## 维护约定
 
