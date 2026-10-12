@@ -1,0 +1,31 @@
+# 岗位（role）定义：决定每个成员的 Agent 收到哪些 skills / rules / agents
+# 成员加入后执行：teamai roles set accounting（或 fpna / tax / treasury，可逗号选多个）
+version: 1
+roles:
+  - id: accounting
+    description: Accounting — GL, AR/AP, expense audit, monthly close, fixed assets
+    resources:
+      knowledge: [accounting]
+      skills: [common, accounting]
+      agents: [accounting]
+
+  - id: fpna
+    description: FP&A — budgeting, rolling forecast, variance analysis, management reporting
+    resources:
+      knowledge: [fpna]
+      skills: [common, fpna]
+      agents: [fpna]
+
+  - id: tax
+    description: Tax — filing compliance, invoicing (fapiao), tax risk and planning
+    resources:
+      knowledge: [tax]
+      skills: [common, tax]
+      agents: [tax]
+
+  - id: treasury
+    description: Treasury — cash management, forecasting, banking, internal control & audit liaison
+    resources:
+      knowledge: [treasury]
+      skills: [common, treasury]
+      agents: [treasury]

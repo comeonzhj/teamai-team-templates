@@ -1,0 +1,33 @@
+# TeamAI 团队仓库配置 — 财务团队
+team: finance
+description: >-
+  Finance team. Full pipeline context (budgeting -> transaction & expense audit -> monthly
+  close -> tax filing -> reporting & analysis -> internal control), one contract per role,
+  review agents and accuracy/controls discipline.
+repo: https://github.com/your-org/finance-teamai.git   # TODO: 改成你的团队仓库地址
+provider: github
+
+reviewers:
+  - finance-lead                # TODO: PR/MR 审核人（财务负责人 / Controller）
+
+sharing:
+  rules:
+    enforced:                   # 强制规则（内控与准确性不可协商）
+      - collaboration-charter
+      - financial-controls
+      - accuracy-discipline
+  docs:
+    localDir: ./.teamai/docs
+  env:
+    injectShellProfile: true
+  gitExclude:
+    enabled: true
+  hooks:
+    autoApply: true
+    requireTeamScripts: true
+  contributeHint:
+    enabled: true
+
+scripts:
+  postPull:
+    path: scripts/deploy-hooks.mjs

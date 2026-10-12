@@ -1,0 +1,23 @@
+# 团队 hooks：pull 后自动分发；脚本部署到 ~/.teamai/team-scripts/
+hooks:
+  - id: session-context
+    description: Every session starts from the team's live finance pipeline context
+    event: SessionStart
+    command: 'bash -lc "~/.teamai/team-scripts/session-context.sh"'
+    timeout: 10
+
+  - id: guard-secrets
+    description: Block a tool call that would leak a credential
+    event: PreToolUse
+    matcher: Bash|Write|Edit
+    command: 'bash -lc "~/.teamai/team-scripts/guard-secrets.sh"'
+    timeout: 15
+
+  - id: guard-pii
+    description: Warn when unmasked bank card / ID / salary figures are written
+    event: PreToolUse
+    matcher: Write|Edit
+    command: 'bash -lc "~/.teamai/team-scripts/guard-pii.sh" || true'
+    timeout: 15
+
+# 财务数据保密与内控的执行依据是 rules/financial-controls.md（强制）。
