@@ -1,0 +1,32 @@
+# TeamAI 团队仓库配置 — 产品 + 研发 + 设计 协作团队
+# 用法：fork 本目录为你的团队仓库后，把 repo: 改成你的仓库地址即可。
+team: product-dev-design
+description: >-
+  Product / Design / Engineering collaboration team. Full-lifecycle context in docs/,
+  one collaboration contract per role in rules/ + skills/, review agents in agents/.
+repo: https://github.com/your-org/product-dev-design-teamai.git   # TODO: 改成你的团队仓库地址
+provider: github
+
+reviewers:
+  - team-lead                # TODO: PR/MR 审核人（你的 Git 平台用户名）
+
+sharing:
+  rules:
+    enforced:                # 强制规则：成员 pull 后不可删除
+      - collaboration-charter
+      - context-hygiene
+  docs:
+    localDir: ./.teamai/docs # 团队 docs/ 镜像到每个业务项目的 .teamai/docs/
+  env:
+    injectShellProfile: true
+  gitExclude:
+    enabled: true            # 交付产物不污染业务仓库的 git
+  hooks:
+    autoApply: true          # 团队 hooks 自动安装
+    requireTeamScripts: true # 只允许执行 ~/.teamai/team-scripts/ 下的脚本（安全边界）
+  contributeHint:
+    enabled: true            # 高摩擦会话结束后提示 /teamai share 沉淀经验
+
+scripts:
+  postPull:
+    path: scripts/deploy-hooks.mjs   # pull 后把 scripts/hooks/*.sh 部署到 ~/.teamai/team-scripts/

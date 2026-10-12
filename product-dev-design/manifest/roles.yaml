@@ -1,0 +1,36 @@
+# 岗位（role）定义：决定每个成员的 Agent 收到哪些 skills / rules / agents
+# 成员加入后执行：teamai roles set pm   （或 design / dev / qa，可逗号选多个）
+# 命名空间即目录名：skills/<ns>/ rules/<ns>/ agents/<ns>/
+version: 1
+roles:
+  - id: pm
+    description: Product manager — requirement discovery, PRD, acceptance criteria, release sign-off
+    resources:
+      knowledge: [pm]
+      skills: [common, pm]
+      agents: [pm]
+
+  - id: design
+    description: Designer — interaction and visual design, design system, usability review
+    resources:
+      knowledge: [design]
+      skills: [common, design]
+      agents: [design]
+
+  - id: dev
+    description: Engineer — technical design, implementation, code review, release engineering
+    resources:
+      knowledge: [dev]
+      skills: [common, dev]
+      agents: [dev]
+
+  - id: qa
+    description: Quality engineer — test strategy, test design, defect triage, release gate
+    resources:
+      knowledge: [qa]
+      skills: [common, qa]
+      agents: [qa]
+
+# 可按需扩展（团队规模变大后）：
+#   dev 拆成 dev-frontend / dev-backend：复制 dev 块改 id，rules/dev/ skills/dev/ agents/dev/ 各复制一份改名
+#   新增 role 后记得：skills/<id>/ 与 rules/<id>/ 至少各放一个文件，否则该岗位没有可同步内容
