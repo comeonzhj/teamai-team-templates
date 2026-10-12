@@ -1,31 +1,37 @@
 # 岗位（role）定义：决定每个成员的 Agent 收到哪些 skills / rules / agents
 # 成员加入后执行：teamai roles set recruiter（或 hrbp / td / hr-ops，可逗号选多个）
+#
+# ★ 资源可见性设计（规范向上下游延伸）★
+#   Agent 放大了每个人的产能：策划能写稿、用人经理能出面试题、业务能做预算材料。
+#   因此规范的影响范围是全团队——每个岗位都拿到全部岗位的规范、SOP 与评审 Agent，
+#   任何岗位的产出按同一套契约产出即可直接进入协作，不需要返工。
+#   产出准入基线见根目录的产出契约规则（rules/*-output-contract.md）。
 version: 1
 roles:
   - id: recruiter
     description: Recruiter — intake, JD, sourcing, screening, interview coordination, offer
     resources:
-      knowledge: [recruiter]
-      skills: [common, recruiter]
-      agents: [recruiter]
+      knowledge: [recruiter, hrbp, td, hr-ops]
+      skills: [common, recruiter, hrbp, td, hr-ops]
+      agents: [recruiter, hrbp, td, hr-ops]
 
   - id: hrbp
     description: HRBP — performance cycle, calibration, feedback, employee relations
     resources:
-      knowledge: [hrbp]
-      skills: [common, hrbp]
-      agents: [hrbp]
+      knowledge: [recruiter, hrbp, td, hr-ops]
+      skills: [common, recruiter, hrbp, td, hr-ops]
+      agents: [recruiter, hrbp, td, hr-ops]
 
   - id: td
     description: Talent development — competency model, IDP, training, succession planning
     resources:
-      knowledge: [td]
-      skills: [common, td]
-      agents: [td]
+      knowledge: [recruiter, hrbp, td, hr-ops]
+      skills: [common, recruiter, hrbp, td, hr-ops]
+      agents: [recruiter, hrbp, td, hr-ops]
 
   - id: hr-ops
     description: HR operations — onboarding/offboarding, HRIS data, compliance filing
     resources:
-      knowledge: [hr-ops]
-      skills: [common, hr-ops]
-      agents: []
+      knowledge: [recruiter, hrbp, td, hr-ops]
+      skills: [common, recruiter, hrbp, td, hr-ops]
+      agents: [recruiter, hrbp, td, hr-ops]

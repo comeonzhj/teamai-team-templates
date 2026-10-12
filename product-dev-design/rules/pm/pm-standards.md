@@ -1,5 +1,9 @@
 # 产品岗位（PM）工作规范
 
+> 产出侧的硬性准线见全队契约（对所有人生效，PM 直接开发的 Demo 同样适用）：
+> `rules/design-contract.md` · `rules/engineering-contract.md` · `rules/quality-contract.md`。
+> 直接动手开发走 `demo-to-prod` skill。
+
 适用：`rules/pm/` 命名空间，仅 PM 岗位的 Agent 收到。
 
 ## 需求工作

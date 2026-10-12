@@ -30,6 +30,15 @@ Template source: [teamai-team-templates](https://github.com/comeonzhj/teamai-tea
 - **Two enforced red lines**: PII protection, fair employment.
 - **Guard hooks**: session context, secret blocking, PII/salary masking warnings.
 
+## Standards extend upstream & downstream (hiring managers can self-serve)
+
+Hiring managers write JDs, question banks, reviews and development plans with agents. For that
+output to be **usable and reviewable**, it must meet the people output contract (`rules/people-
+output-contract.md`: templated, evidence-based, masked, reviewable) and the enforced PII and
+fair-employment red lines. Say "用 interviewer-self-serve skill <JD / interview questions /
+review>" to produce it. All role standards and assist agents are team-visible — but hire/reject
+and rating conclusions always require a human signature.
+
 ## How to use it
 
 ### HR lead — first-time setup (conversation only)

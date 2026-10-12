@@ -1,5 +1,8 @@
 # 质量岗位（QA）工作规范
 
+> 产出侧的硬性准线见全队契约：`rules/quality-contract.md`（本岗位是它的主责方）
+> 与 `rules/design-contract.md`、`rules/engineering-contract.md`；它们对全团队生效。
+
 适用：`rules/qa/` 命名空间，仅 QA 岗位的 Agent 收到。
 
 ## 测试策略

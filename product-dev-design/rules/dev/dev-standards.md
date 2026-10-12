@@ -4,6 +4,9 @@ paths: '**/*.{ts,tsx,js,jsx,go,py,java,kt,swift,vue,css,scss,sql,sh}' # 仅对�
 
 # 研发岗位（Dev）工作规范
 
+> 产出侧的硬性准线见全队契约：`rules/engineering-contract.md`（本岗位是它的主责方）
+> 与 `rules/quality-contract.md`；它们对全团队生效——PM/设计用 Agent 写的代码也按此标准验收。
+
 适用：`rules/dev/` 命名空间，仅研发岗位的 Agent 收到。
 
 ## 技术方案
@@ -28,3 +31,14 @@ paths: '**/*.{ts,tsx,js,jsx,go,py,java,kt,swift,vue,css,scss,sql,sh}' # 仅对�
 ## 发布
 
 11. 发布走 `docs/templates/release-checklist.md`；发布后盯错误率/核心指标 30 分钟，异常立即回滚而不是热修。
+
+## 非研发岗位直接开发（PM Demo / 快速迭代）
+
+12. 产品、设计、测试用 Coding Agent 直接开发时，适用同一套准线：`rules/design-contract.md`（UI）+
+    `rules/engineering-contract.md`（代码）+ `rules/quality-contract.md`（验收），按 `demo-to-prod`
+    skill 执行，目标是**产出免重构进协作**。
+13. 已有项目迭代：项目约定优先（先读项目 AGENTS.md/CI/lint）；满足免重构清单且影响面可控的，
+    可直接进灰度（开关 + 比例 + 监控 + 回滚），不必等全量排期。
+14. 波及面大的改动（数据模型、公共接口、支付/权限）不单人直发：先走阶段 2-4 正式评审。
+    对研发的要求：符合三份契约的产出**不得以风格理由要求重构**；发现契约缺口就修契约
+    （走 `decisions.md` 留痕），不允许各写各的标准。

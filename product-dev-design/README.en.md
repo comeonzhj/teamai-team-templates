@@ -29,6 +29,21 @@ Template source: [teamai-team-templates](https://github.com/comeonzhj/teamai-tea
   handoff check, context keeper.
 - **Guard hooks** (`hooks/`): session context injection, secret blocking, PII warnings.
 
+## Everyone can build; output enters collaboration as-is (standards extend upstream & downstream)
+
+Agents give everyone engineering power — a PM can ship a Demo, even iterate on a live
+project and A/B it behind a flag. The one requirement: **output meets the team's three
+contracts** — design contract (design system, states, accessibility), engineering contract
+(project conventions, tests, rollback), quality contract (testable AC, checklist, handoff).
+
+So every role receives more than its own standards: **all role standards and SOPs are
+visible team-wide, and every review agent is callable by any role** — a PM's demo checked
+against engineering and quality standards enters collaboration without rework. Say
+"用 demo-to-prod skill 把 <idea> 做出来" to start.
+
+Team rule: output meeting the contracts may not be rejected for style; extend the contracts
+via the decision log instead of inventing private standards.
+
 ## How to use it
 
 ### Team lead — first-time setup (conversation only, no Git skills needed)

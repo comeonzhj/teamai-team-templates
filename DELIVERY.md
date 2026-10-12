@@ -98,6 +98,30 @@ teamai pull              # 自动获得规范/技能/Agent/文档/Hook
 
 README 已同步改为面向用户、中文优先（`README.md` 中文主文档，`README.en.md` 英文简版）。
 
+## 四之三、规范向上下游延伸（本轮新增）
+
+**问题**：Agent 放大了每个人的产能——产品能直接用 Coding Agent 开发 Demo、业务能直接出人事/财务
+材料。但如果规范只约束本岗位，跨岗位产出（PM 写的代码、运营写的文案、业务的预算材料）就
+不满足下游岗位的标准，进入协作后必须重构，反而抬高协作成本。
+
+**原则**：全团队各岗位规范确定后，**规范的影响范围是全团队**；产出能不能进协作，由统一的
+「产出契约」判定，而不是由「谁写的」判定。
+
+**落地**（四套模板同构）：
+
+1. **产出契约下沉为全队准线**（人人可见，进入协作的准入基线）：
+   - 产研设：`design-contract.md`（UI）+ `engineering-contract.md`（代码）+ `quality-contract.md`（验收与免重构清单）
+   - 内容：`content-output-contract.md`；HR：`people-output-contract.md`；财务：`finance-output-contract.md`
+2. **专业知识与评审助手跨岗位可及**：`manifest/roles.yaml` 中每个岗位都拿到全部岗位的
+   knowledge / skills / agents 命名空间（PM 可调用 code-reviewer 证明免重构，业务可调用
+   privacy-reviewer 自查）；需要岗位私有内容时从其他岗位列表移除对应命名空间即可。
+3. **单人跨岗工作流 skill**（把想法直达协作）：
+   - 产研设 `demo-to-prod`：Demo / 已有项目迭代 → 按三契约开发 → 评审 Agent 自检 →
+     交接包或灰度计划（影响面可控的迭代可直接灰度上线测试）
+   - 内容 `solo-content-run`；HR `interviewer-self-serve`；财务 `budget-owner-flow`
+4. **协作对价写进规则**：符合契约的产出不得以风格/习惯理由要求重构；认为契约不全就修契约
+   （`decisions.md` 留痕），不允许各写各的标准。
+
 ## 五、质量保障（本次交付的验证记录）
 
 - 52 个 YAML 全部解析通过（`teamai.yaml` / `manifest` / `agents` / `hooks` / `env` / `models` / `mcp`）。

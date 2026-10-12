@@ -14,6 +14,9 @@
 
 ## 关键动作
 
+0. **任何岗位都可以直接开发**（PM Demo、快速迭代）：适用同一套全队契约
+   （`rules/design-contract.md` + `engineering-contract.md` + `quality-contract.md`），
+   按 `demo-to-prod` skill 执行；满足免重构清单的产出可直接进交接或灰度，不需重构。
 1. **技术方案**（> 3 人日必写，`../templates/tech-design.md`）：方案对比、数据模型/接口变更、兼容迁移、回滚策略、灰度/开关、可观测性、性能预算、风险。
 2. **任务拆分**：按可独立交付/可独立测试的粒度拆，每项有 owner 与预估。
 3. **编码**：小步提交（Conventional Commits）、测试先行、禁止项见 `rules/dev/dev-standards.md`。
@@ -37,6 +40,7 @@
 
 → QA：提测包 = 交接包（00-summary + 技术方案 + 变更清单 + 影响面 + 自测报告 + 已知风险）
 → Design：还原度走查（差异要么改实现要么改稿留痕）
+→ 非研发开发的产出：按 `demo-to-prod` 的免重构清单自检后，同样走上述交接或直接灰度
 
 ## 常见坑
 

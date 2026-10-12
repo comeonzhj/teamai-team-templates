@@ -1,35 +1,42 @@
 # 岗位（role）定义：决定每个成员的 Agent 收到哪些 skills / rules / agents
 # 成员加入后执行：teamai roles set pm   （或 design / dev / qa，可逗号选多个）
-# 命名空间即目录名：skills/<ns>/ rules/<ns>/ agents/<ns>/
+#
+# ★ 资源可见性设计（规范向上下游延伸）★
+#   Agent 放大了每个人的产能：产品可以直接写 Demo，研发可以出设计稿，测试可以写脚本。
+#   因此「规范的影响范围是全团队」——每个岗位都拿到全部岗位的规范、SOP 与评审 Agent，
+#   这样任何岗位的产出（含 PM 用 Coding Agent 开发的 Demo）都按同一套契约产出，可直接进协作，
+#   不需要重构。产出准入基线是根目录的三份契约：
+#     rules/design-contract.md · rules/engineering-contract.md · rules/quality-contract.md
+#   若某个岗位确需「只有自己看」的内部文档，把它放在专属命名空间并从其他岗位的列表中移除。
 version: 1
 roles:
   - id: pm
-    description: Product manager — requirement discovery, PRD, acceptance criteria, release sign-off
+    description: Product manager — requirement discovery, PRD, acceptance criteria, release sign-off (may ship demos/iterations per the team contracts)
     resources:
-      knowledge: [pm]
-      skills: [common, pm]
-      agents: [pm]
+      knowledge: [pm, design, dev, qa]
+      skills: [common, pm, design, dev, qa]
+      agents: [pm, design, dev, qa]
 
   - id: design
     description: Designer — interaction and visual design, design system, usability review
     resources:
-      knowledge: [design]
-      skills: [common, design]
-      agents: [design]
+      knowledge: [design, pm, dev, qa]
+      skills: [common, design, pm, dev, qa]
+      agents: [design, pm, dev, qa]
 
   - id: dev
     description: Engineer — technical design, implementation, code review, release engineering
     resources:
-      knowledge: [dev]
-      skills: [common, dev]
-      agents: [dev]
+      knowledge: [dev, pm, design, qa]
+      skills: [common, dev, pm, design, qa]
+      agents: [dev, pm, design, qa]
 
   - id: qa
     description: Quality engineer — test strategy, test design, defect triage, release gate
     resources:
-      knowledge: [qa]
-      skills: [common, qa]
-      agents: [qa]
+      knowledge: [qa, pm, design, dev]
+      skills: [common, qa, pm, design, dev]
+      agents: [qa, pm, design, dev]
 
 # 可按需扩展（团队规模变大后）：
 #   dev 拆成 dev-frontend / dev-backend：复制 dev 块改 id，rules/dev/ skills/dev/ agents/dev/ 各复制一份改名

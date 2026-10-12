@@ -12,6 +12,17 @@
 | 查一个决策为什么这么做 | [`context/decisions.md`](context/decisions.md) |
 | 查术语口径 | [`context/glossary.md`](context/glossary.md) |
 
+## 全队产出契约（任何岗位产出都适用）
+
+| 契约 | 管什么 | 免重构自检用什么 |
+|---|---|---|
+| `rules/design-contract.md` | UI/交互/视觉产出的准线（含 PM 做的 Demo） | `design-reviewer` |
+| `rules/engineering-contract.md` | 任何代码产出的准线（含 PM/设计写的代码） | `code-reviewer` + lint/测试 |
+| `rules/quality-contract.md` | 产出进入协作的共同门槛（免重构清单） | `test-plan-reviewer` + 清单 |
+
+> 想直接动手开发（Demo / 已有项目迭代）：用 `demo-to-prod` skill，按三份契约产出、自检、
+> 交接或灰度，不需要重构即可进协作。
+
 ## 全流程（任何阶段可开工）
 
 | 阶段 | 文档 | 主责岗位 |

@@ -33,6 +33,15 @@ Template source: [teamai-team-templates](https://github.com/comeonzhj/teamai-tea
 - **Guard hooks**: session context with deadlines and definitions, secret blocking,
   bank-card/PII masking warnings.
 
+## Standards extend upstream & downstream (business can self-serve finance material)
+
+Business owners build budgets, variance explanations and management-report material with agents.
+For finance to **accept it without rework**, it must meet the finance output contract (`rules/
+finance-output-contract.md`: definition/source/as-of on every number, evidence chain, documented
+assumptions, masked sensitive data) and the enforced controls and accuracy red lines. Say
+"用 budget-owner-flow skill <dept budget / variance / management report>" to produce it. All role
+standards and assist agents are team-visible — but payments, postings and filings stay human.
+
 ## How to use it
 
 ### Finance lead — first-time setup (conversation only)

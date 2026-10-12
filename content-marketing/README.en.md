@@ -31,6 +31,15 @@ Template source: [teamai-team-templates](https://github.com/comeonzhj/teamai-tea
 - **Guard hooks** (`hooks/`): session context injection, advertising-claims warnings,
   secret blocking. Enforced red line: claims, citations, copyright, privacy.
 
+## Standards extend upstream & downstream (everyone can produce content)
+
+Agents let strategists write, ops design, and PMs draft. For output to go **straight into the
+calendar and pass review once**, it must meet the content output contract (`rules/content-output-
+contract.md`: complete delivery package, four-gate self-check, defined metrics) and the enforced
+content-safety red line. Say "用 solo-content-run skill 做一条 <topic> 的内容" to run the whole
+pipeline with self-checks. All role standards and review agents (fact-checker, brand voice,
+editorial, SEO) are visible team-wide; the editor's sign-off flow is unchanged.
+
 ## How to use it
 
 ### Team lead — first-time setup (conversation only)

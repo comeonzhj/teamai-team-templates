@@ -16,6 +16,12 @@
 | 查指标口径 | [`context/glossary.md`](context/glossary.md) |
 | 查政策/口径变更 | [`context/decisions.md`](context/decisions.md) |
 
+## 全队产出契约（业务侧产出财务材料都适用）
+
+`rules/finance-output-contract.md`（协作准入）+ `financial-controls` / `accuracy-discipline`（红线）：
+数字三要素、证据链、口径一致 → 财务可直接受理。
+业务自助用 `budget-owner-flow` skill。
+
 ## 全流程（任意环节可开工）
 
 | 环节 | 文档 | 主责 |

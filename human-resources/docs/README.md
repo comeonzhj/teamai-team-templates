@@ -16,6 +16,12 @@
 | 查绩效框架 | [`context/performance-framework.md`](context/performance-framework.md) |
 | 查指标口径 | [`context/glossary.md`](context/glossary.md) |
 
+## 全队产出契约（业务侧产出人事材料都适用）
+
+`rules/people-output-contract.md`（协作准入）+ `pii-protection` / `fairness-compliance`（红线）：
+结构化、证据化、脱敏、可复核 → 可直接进 HR 流程。
+用人经理自助用 `interviewer-self-serve` skill。
+
 ## 全流程（任意环节可开工）
 
 | 环节 | 文档 | 主责 |

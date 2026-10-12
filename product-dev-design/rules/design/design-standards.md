@@ -1,5 +1,8 @@
 # 设计岗位（Design）工作规范
 
+> 产出侧的硬性准线见全队契约：`rules/design-contract.md`（本岗位是它的主责方）
+> 与 `rules/quality-contract.md`；它们对全团队生效。
+
 适用：`rules/design/` 命名空间，仅设计岗位的 Agent 收到。
 
 ## 设计流程

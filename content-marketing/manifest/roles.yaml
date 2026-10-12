@@ -1,33 +1,39 @@
 # 岗位（role）定义：决定每个成员的 Agent 收到哪些 skills / rules / agents
 # 成员加入后执行：teamai roles set strategy（或 writer / editor / ops，可逗号选多个）
+#
+# ★ 资源可见性设计（规范向上下游延伸）★
+#   Agent 放大了每个人的产能：策划能写稿、用人经理能出面试题、业务能做预算材料。
+#   因此规范的影响范围是全团队——每个岗位都拿到全部岗位的规范、SOP 与评审 Agent，
+#   任何岗位的产出按同一套契约产出即可直接进入协作，不需要返工。
+#   产出准入基线见根目录的产出契约规则（rules/*-output-contract.md）。
 version: 1
 roles:
   - id: strategy
     description: Content strategist — topic selection, content calendar, competitive gap analysis
     resources:
-      knowledge: [strategy]
-      skills: [common, strategy]
-      agents: [strategy]
+      knowledge: [strategy, writer, editor, ops]
+      skills: [common, strategy, writer, editor, ops]
+      agents: [strategy, writer, editor, ops]
 
   - id: writer
     description: Content writer — research synthesis, outline, drafting, SEO structure
     resources:
-      knowledge: [writer]
-      skills: [common, writer]
-      agents: [writer]
+      knowledge: [strategy, writer, editor, ops]
+      skills: [common, strategy, writer, editor, ops]
+      agents: [strategy, writer, editor, ops]
 
   - id: editor
     description: Editor — fact checking, language editing, compliance and copyright review
     resources:
-      knowledge: [editor]
-      skills: [common, editor]
-      agents: [editor]
+      knowledge: [strategy, writer, editor, ops]
+      skills: [common, strategy, writer, editor, ops]
+      agents: [strategy, writer, editor, ops]
 
   - id: ops
     description: Content operations — distribution, channel tuning, analytics and retro
     resources:
-      knowledge: [ops]
-      skills: [common, ops]
-      agents: [ops]
+      knowledge: [strategy, writer, editor, ops]
+      skills: [common, strategy, writer, editor, ops]
+      agents: [strategy, writer, editor, ops]
 
 # 扩展建议：渠道专岗（如 video / social）可加 role id：video，并建 rules/video/ skills/video/

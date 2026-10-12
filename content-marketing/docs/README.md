@@ -13,6 +13,12 @@
 | 查指标口径 | [`context/glossary.md`](context/glossary.md) |
 | 查一个决策为什么这么做 | [`context/decisions.md`](context/decisions.md) |
 
+## 全队产出契约（任何岗位产出对外内容都适用）
+
+`rules/content-output-contract.md`（协作准入）+ `rules/content-safety.md`（红线）：
+交付包完整、四关自检过、口径一致 → 可直接进排期。
+单人全流程用 `solo-content-run` skill。
+
 ## 内容全流程（任意环节可开工）
 
 | 环节 | 文档 | 主责 |
