@@ -1,40 +1,60 @@
-# TeamAI 团队协作模板仓库（4 套）
+# TeamAI 团队协作模板（4 套）
 
-Four ready-to-use **TeamAI team repository templates** for cross-functional team
-collaboration. Each directory is a complete team repo: copy it to any Git host, run
-`teamai init`, and every member's AI tools receive the team's context, per-role rules,
-skills, review agents and guard hooks automatically.
+> 给非技术团队负责人的一句话：**挑一套模板，跟 AI 聊一次天，你的团队就有了统一的
+> AI 协作规范和项目上下文——每个同事的 AI 工具自动生效，新人来了开口就能干活。**
 
-交付说明（含需求对照、使用方法、定制清单、验证记录）：[DELIVERY.md](DELIVERY.md)
+## 这是什么
 
-| Template | For | Pipeline | Roles |
+一套「团队 AI 协作仓库」模板。它把你团队的**流程、规范、上下文、评审标准**整理成
+结构化内容，通过 [teamai-cli](https://www.npmjs.com/package/teamai-cli) 自动同步到
+每个成员的每个 AI 工具（Claude、Codex、Cursor、CodeBuddy、OpenCode 等）。
+
+- 团队资料只存在你们自己的 Git 仓库里；
+- 同一岗位的人拿到同一套规范，跨人跨工具一致；
+- 项目状态只有一份文档，AI 会话自动读取，不再反复介绍背景。
+
+## 四套模板怎么选
+
+| 你的团队 | 用这套 | 覆盖的全流程 | 岗位 |
 |---|---|---|---|
-| [`product-dev-design/`](product-dev-design/) | Product + Design + Engineering (+QA) | discovery → definition → design → development → testing → release → retro | pm · design · dev · qa |
-| [`content-marketing/`](content-marketing/) | Content marketing | topic → research → creation → review → distribution → retro | strategy · writer · editor · ops |
-| [`human-resources/`](human-resources/) | Human resources | workforce planning → JD → screening → interview → offer/onboarding → performance → talent development | recruiter · hrbp · td · hr-ops |
-| [`finance/`](finance/) | Finance | budgeting → expense audit → monthly close → tax filing → reporting → internal control | accounting · fpna · tax · treasury |
+| 产品 + 研发 + 设计（含测试） | [`product-dev-design/`](product-dev-design/) | 需求 → 设计 → 开发 → 测试 → 发布 → 复盘 | 产品 / 设计 / 研发 / 测试 |
+| 内容营销 | [`content-marketing/`](content-marketing/) | 选题 → 资料 → 创作 → 审校 → 分发 → 复盘 | 策划 / 撰稿 / 编辑 / 运营 |
+| 人力资源 | [`human-resources/`](human-resources/) | 招聘需求 → JD → 筛选 → 面试 → 绩效 → 人才培养 | 招聘 / HRBP / 人才发展 / HR 运营 |
+| 财务 | [`finance/`](finance/) | 预算 → 费用审核 → 月结 → 税务 → 分析 → 内控 | 核算 / FP&A / 税务 / 资金 |
 
-## What every template ships
+每个岗位的工作规范、SOP、评审助手、合规红线都是按照行业通行做法写好的，拿来即用；
+差异部分（指标口径、制度阈值、工具地址）在配置时回答几个问题即可。
 
-- `docs/` — full-lifecycle stage playbooks (entry conditions, actions, outputs, DoD, handoff),
-  output templates, and live context (status / decisions / standards / metric definitions)
-- `rules/` — always-on collaboration contract + domain red lines (enforced, cannot be deleted)
-  + per-role standards
-- `skills/` — operating SOPs per role and shared (`common/`)
-- `agents/` — review and assist agents (PRD/editorial/code/test reviewers, fact-checker,
-  privacy reviewer, voucher auditor, budget analyst, ...)
-- `hooks/` + `scripts/` — session-context injection, secret blocking, PII/claims guards
-- `env/`, `models/aliases.yaml`, `mcp/` — team variables, secret declarations, model aliases
-- `manifest/roles.yaml` — role → namespace mapping (what each role receives)
+## 拿到后怎么用（全程对话，不用懂 Git）
 
-## Quick start
+1. **挑模板、建仓库**（5 分钟）：把模板目录复制成你们团队的 Git 仓库；
+   不会操作就把这句话发给你的 AI 工具：「帮我把这个模板变成我们团队的团队仓库并推送」。
+2. **跟 AI 聊一次配置**（30-45 分钟）：在 AI 工具里说 **「帮我配置团队」**——
+   - 回答几个问题：有哪些岗位、每个人负责什么、流程分几步、有什么红线；
+   - 把手头资料丢给它（产品介绍、制度、会议纪要、旧文档、聊天记录），
+     它萃取出团队上下文，整理成人人可读的文档；
+   - 你确认「每个岗位能看到什么、能用什么」；
+   - 它生成一份**《团队配置审阅单》**（通俗易懂，不认识技术也能看懂），
+     你看一遍、回答几个待确认问题、说「可以发布」。
+3. **邀请成员**（每人 3 分钟）：把审阅单末尾的话术转发给同事，他们只需在自己的 AI 工具里说
+   「/teamai 帮我加入团队，仓库地址是 <URL>」，然后认领岗位即可。
 
-```bash
-cp -r <template> ~/work/my-teamai && cd ~/work/my-teamai   # 1. copy one template to a Git repo
-# 2. edit teamai.yaml (repo, reviewers) + docs/context/ + env/ (see the template README)
-teamai init https://github.com/your-org/my-teamai          # 3. each member
-teamai roles set pm
-teamai pull
-```
+之后的日常维护同样靠说话：「/teamai 帮我管理团队」「把这个经验分享给团队」。
 
-Requires [teamai-cli](https://www.npmjs.com/package/teamai-cli) (`npm install -g teamai-cli`).
+## 关于「对话式能力」的分工
+
+| 谁提供 | 覆盖什么 | 怎么触发 |
+|---|---|---|
+| teamai 自带 | 创建/加入团队仓库、成员接入、发布与更新规范/文档/助手、工具与环境配置、岗位与项目管理、团队看板 | `/teamai ...` |
+| 本模板补充 | 团队上下文萃取、岗位与资源权限设计、配置审阅单（把模板变成"你们团队的"） | 「帮我配置团队」（`team-setup`） |
+
+## 常见问题
+
+**不挑 AI 工具吗？** 不挑。主流工具都支持，规范自动翻译成各家格式。
+**资料安全吗？** 资料只在你们的仓库；凭据不进仓库（成员本机保存）；隐私与薪酬有脱敏守卫与红线。
+**改规范麻烦吗？** 说一句话让 AI 改，发布一次全员自动更新；红线规范成员删不掉。
+**岗位和我们不一样？** 配置时说一声，AI 帮你增删岗位并配置可见资源。
+
+---
+
+交付留档（技术结构、验证记录）：[DELIVERY.md](DELIVERY.md) · English index: [README.en.md](README.en.md)

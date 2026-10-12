@@ -47,28 +47,56 @@
   `guard-claims` 预警广告法极限词），脚本由 `scripts/deploy-hooks.mjs` 在 pull 后自动部署到
   `~/.teamai/team-scripts/`（配合 `requireTeamScripts: true` 安全边界）。
 
-## 三、使用方法
+## 三、使用方法（全程对话，非技术友好）
 
 ```bash
 # 1) 选一套模板，复制为你的团队仓库并推到 Git 平台（成员需写权限）
+#    不会操作就把模板目录交给你的 AI 工具，说：帮我把这个模板变成团队仓库并推送
 cp -r product-dev-design ~/work/my-teamai && cd ~/work/my-teamai
-# 2) 改必改项（每套 README 的「按团队定制」清单，约 30-45 分钟）：
-#    teamai.yaml 的 repo/reviewers、docs/context/ 里的业务背景与口径、env/ 端点与机密
-# 3) 成员接入
+# 2) 在 AI 工具里说「帮我配置团队」（team-setup 对话式配置助手引导）：
+#    聊岗位与流程 → 丢入原资料（PPT/制度/纪要/聊天记录）自动萃取上下文 →
+#    确认岗位可见资源 → 生成《团队配置审阅单》→ 负责人说「可以发布」
+# 3) 成员接入（每人 3 分钟）
 npm install -g teamai-cli
 teamai init https://github.com/your-org/my-teamai
 teamai roles set pm      # 认领岗位
 teamai pull              # 自动获得规范/技能/Agent/文档/Hook
 ```
 
-## 四、少量定制点（用户只需调整这些）
+后续的发布、更新、成员与岗位管理同样靠对话：「/teamai 帮我管理团队」。
 
-1. **业务事实**：`docs/context/` 下的产品全景 / 品牌语调 / 组织现状 / 会计政策等（模板内是示例数据）。
+## 四、少量定制点（对话配置已覆盖大部分，剩余按需微调）
+
+1. **业务事实**：`docs/context/` 下的产品全景 / 品牌语调 / 组织现状 / 会计政策等（模板内是示例数据，对话配置时由原资料萃取替换）。
 2. **口径与阈值**：`docs/context/glossary.md` 的指标口径、规则里的阈值（CR 400 行、响应 4 小时、
    差异 ±5%、留存 180 天等）按团队情况改。
 3. **岗位**：`manifest/roles.yaml` 增删岗位（模板内有扩展说明），对应建 `rules|skills|agents/<id>/`。
 4. **工具与凭据**：`env/`、`mcp/`、`models/aliases.yaml` 换成你们的系统与模型。
 5. **合规词表**：`scripts/hooks/guard-claims.sh`（内容团队按所在市场法规扩充）。
+
+## 四之二、对话式配置能力（本轮新增交付）
+
+非技术人员的使用成本是本轮重点。现状与补齐方案：
+
+**teamai 已提供（无需重复建设）**：`/teamai` 对话入口覆盖——创建/加入团队仓库、成员接入、
+发布与更新 skill/rule/doc、MCP、环境变量与机密、hooks、角色与项目管理、团队看板；
+全程由 Agent 执行命令，用户不需要懂 Git。
+
+**teamai 未提供、本次在模板内构建的**：把模板变成「你们团队的」的内容配置能力，
+以 `skills/common/team-setup/SKILL.md`（对话式配置助手）+ `docs/templates/config-review.md`
+（配置审阅单模板）交付，四套模板均已内置：
+
+1. **对话收集团队信息**：岗位与职责、流程阶段、工具系统、红线、口径争议点、拍板人（一次问一批）。
+2. **原资料萃取上下文**：产品介绍/制度/纪要/聊天记录/旧 wiki → 事实、口径、流程、标准、决策五类
+   信息落位到 `docs/context/`；只萃取不发明，矛盾与存疑进待确认清单；隐私/薪酬/凭据先脱敏。
+3. **岗位 × 资源权限配置**：把职责映射为 role id，决定每个岗位可见可用的 skills/rules/agents/
+   docs/env/hooks/mcp，写入 `manifest/roles.yaml` 与命名空间目录；敏感岗位最小化下发。
+4. **校验**：YAML 解析、命名空间目录、命名唯一、enforced 规则、hook 脚本一致性。
+5. **通俗审阅单交付**：生成 `docs/config-review.md`——短句 + 表格，含「我们理解的团队 / 岗位职责 /
+   每岗位能看到什么 / 萃取到的上下文 / 改动清单 / 待确认问题 / 下一步 / 成员转发话术」，
+   负责人看懂即可确认；确认后由 Agent 提交推送。
+
+README 已同步改为面向用户、中文优先（`README.md` 中文主文档，`README.en.md` 英文简版）。
 
 ## 五、质量保障（本次交付的验证记录）
 

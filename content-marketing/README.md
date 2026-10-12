@@ -1,80 +1,90 @@
-# Content Marketing — TeamAI Collaboration Template
+# 内容营销团队 · 团队 AI 模板
 
-A ready-to-use **team AI repository** (TeamAI team repo) for content marketing teams
-covering the full pipeline: **topic selection → research → creation → editorial review →
-distribution → performance retro**. Drop it on any Git host, run `teamai init`, and every
-member's AI tool gets the same per-role contract plus the team's shared context.
+> 把选题、写稿、审校、分发、复盘的打法和上下文装进每个人的 AI 工具里。
+> 新同事、新开的 AI 会话，**只要说清自己的岗位，就能从任意环节开工**。
 
-[简体中文](README.zh-CN.md)
+## 这套模板解决什么问题
 
-## What you get
+| 以前 | 现在 |
+|---|---|
+| 品牌语调靠口口相传，写出来风格不一 | 语调规范人人可见，AI 写稿前自动对照 |
+| 爆款经验留在个人脑子里 | 复盘沉淀进团队知识库，下个选题能搜到 |
+| 合规靠记忆（广告法、版权、事实） | 审校四关 + AI 自动预警极限词、拦截凭据泄露 |
+| 数据口径各说各话，复盘变扯皮 | 指标口径只有一份定义，数字必须带口径和来源 |
+| 选题、写稿、审校、运营各干各的 | 每个环节有交接规范，接手不用重新对齐 |
 
-| Layer | Where | Delivered to |
-|---|---|---|
-| **Pipeline context** — stage playbooks, content calendar, brand voice, personas, strategy | `docs/` | every member, every AI tool |
-| **One contract per role** — rules incl. a non-negotiable compliance red line | `rules/`, `rules/<role>/` | shared + role-scoped |
-| **Role operating skills** — topic research, writing, editorial review, distribution & analytics | `skills/` | role-scoped |
-| **Review agents** — topic / SEO / editorial / analytics reviewers, fact-checker, brand voice keeper | `agents/` | shared + role-scoped |
-| **Guard hooks** — session context injection, secret guard, advertising-claims guard | `hooks/`, `scripts/hooks/` | installed automatically |
-| **Env & secrets** — CMS / analytics endpoints, publishing tokens | `env/` | via `teamai env exec` |
+## 你会得到什么
 
-**The promise:** a new member (or a fresh agent session) only needs to know their role and
-can start from *any* pipeline stage — no background briefing.
+1. **全流程工作手册**（`docs/`）：选题 → 资料搜集 → 内容生成 → 审校合规 → 发布分发 → 运营复盘，
+   每个环节写清「进入条件、怎么做、产出什么、怎么算完成、交给谁」，产出物都有模板
+   （选题卡、资料简报、提纲、审校清单、分发计划、复盘报告）。
+2. **岗位规范**（`rules/` + `skills/`）：策划、撰稿、编辑、运营各自的红线与 SOP，只下发给对应岗位。
+3. **内容助手**（`agents/`）：事实核查、品牌语调守门、选题评审、SEO 与可读性、审校放行、数据分析。
+4. **自动守卫**（`hooks/`）：会话自动注入上下文；广告法极限词预警；凭据泄露拦截。
+5. **合规红线**（强制规则）：宣称可溯源、版权授权、隐私脱敏、AI 生成声明——成员删不掉。
 
-## Roles
+## 三种角色怎么用
 
-| Role id | Owns | Entry point |
-|---|---|---|
-| `strategy` | topic selection, content calendar, gap analysis | `docs/lifecycle/01-topic-selection.md` |
-| `writer` | research synthesis, outline, drafting, SEO structure | `docs/lifecycle/02-research.md` |
-| `editor` | fact / copyright / compliance / brand-voice review | `docs/lifecycle/04-editorial-review.md` |
-| `ops` | distribution, channel tuning, analytics and retro | `docs/lifecycle/05-distribution.md` |
+### 你是负责人：第一次配置（全程对话，不用懂技术）
 
-## Pipeline
+1. **建仓库**：把这个模板复制成你们团队的 Git 仓库；不会操作就让 AI 帮你复制并推送。
+2. **开始对话配置**：在 AI 工具里说 **「帮我配置团队」**。AI 会：
+   - 聊几句团队情况（岗位分工、内容流程、渠道、红线）；
+   - 接收你丢过来的原资料（品牌手册、历史爆文、运营数据、制度），萃取出
+     品牌语调、受众画像、内容策略、指标口径，写进 `docs/context/`；
+   - 按你的确认配置「每个岗位能看到什么、能用什么」；
+   - 生成一份**通俗易懂的《团队配置审阅单》**给你审阅，回答几个待确认问题、说「可以发布」即可。
+3. **邀请成员**：把审阅单末尾的转发话术发给同事。
 
-`01 topic → 02 research → 03 creation → 04 review → 05 distribution → 06 retro`
+### 你是成员：3 分钟接入
 
-Every stage doc states entry conditions, actions, outputs, definition of done and handoff.
-Compliance (`rules/content-safety.md`, enforced) is a hard gate: claims, citations,
-copyright and privacy are checked before anything is published.
-
-## Quick start
-
-```bash
-# 1. Admin: copy this directory to a new Git repo and push it
-# 2. Before inviting anyone, edit:
-#    teamai.yaml            -> repo URL, reviewers
-#    env/env.yaml           -> your CMS / analytics endpoints
-#    env/secrets.yaml       -> your tokens (values stay on members' machines)
-#    docs/context/          -> brand-voice, personas, content-strategy, glossary
-# 3. Every member:
-teamai init https://github.com/your-org/your-teamai-repo
-teamai roles set writer     # strategy | writer | editor | ops
-teamai pull
+```
+npm install -g teamai-cli
+# 在 AI 工具里说：
+/teamai 帮我加入团队，仓库地址是 https://github.com/your-org/your-repo
+teamai roles set writer    # strategy | writer | editor | ops
 ```
 
-## Customize (30 minutes)
+### 日常管理：说话就行
 
-- [ ] `teamai.yaml` — repo URL, reviewers
-- [ ] `manifest/roles.yaml` — roles (e.g. add `video`, `social`)
-- [ ] `docs/context/brand-voice.md` — your brand voice, banned words, channel styles
-- [ ] `docs/context/audience-personas.md` / `content-strategy.md` — your audiences & pillars
-- [ ] `docs/context/glossary.md` — your metric definitions (the single source of truth for metric definitions)
-- [ ] `scripts/hooks/guard-claims.sh` — extend the banned-claim word list for your region
-- [ ] `env/`, `mcp/`, `models/aliases.yaml` — your endpoints, tools and models
+「/teamai 帮我管理团队」可发布/更新规范与文档、管理成员与岗位、配置工具与数据源。
 
-## Repository layout
+## 内容全流程
 
-```text
-teamai.yaml            team config (sharing policy, post-pull hook deploy)
-manifest/roles.yaml    role -> namespace mapping
-docs/                  pipeline stages, templates, calendar/status, decisions
-rules/                 always-on norms + content-safety red line
-skills/                SOPs per stage/role
-agents/                fact-checker, brand-voice-keeper, topic/seo/editorial/analytics reviewers
-hooks/ + scripts/      session-context, guard-secrets, guard-claims
-env/                   shared variables + secret declarations
-models/ mcp/           model aliases, MCP servers
-```
+| 环节 | 做什么 | 主责 | 产出（模板） |
+|---|---|---|---|
+| 1 选题策划 | 受众缺口、选题打分、热点判断、排期 | strategy | 选题卡 |
+| 2 资料搜集 | 来源分级、交叉验证、反证检查 | writer | 资料简报 |
+| 3 内容生成 | 提纲、正文、语调与 SEO | writer | 提纲 / 成稿 |
+| 4 审校合规 | 事实 / 版权 / 合规 / 语调四关 | editor | 审校清单 |
+| 5 发布分发 | 渠道差异化、UTM、首小时观察 | ops | 分发计划 |
+| 6 运营复盘 | 数据拆解、A/B、经验沉淀 | ops + strategy | 复盘报告 |
 
-Requires [teamai-cli](https://www.npmjs.com/package/teamai-cli) (`npm install -g teamai-cli`).
+在产稿件与排期永远看 `docs/context/current-status.md`（内容日历）。
+
+## 岗位
+
+| 岗位 | 负责 | 拿到的规范与助手 |
+|---|---|---|
+| `strategy` 策划 | 选题、内容日历、竞品缺口 | 选题 SOP、选题评审助手 |
+| `writer` 撰稿 | 资料、提纲、成稿 | 写作 SOP、SEO 与可读性助手 |
+| `editor` 编辑 | 四关审校、放行 | 审校 SOP、审校放行助手 |
+| `ops` 运营 | 分发、数据、复盘 | 运营 SOP、数据分析助手 |
+
+## 常见问题
+
+**合规怎么保证？** 红线规则强制生效（广告法禁用词、宣称需可溯源、版权授权、隐私脱敏），
+AI 写入前也会预警极限词；但放行结论由人签字——四关审校清单就是证据。
+
+**AI 写的稿能直接发吗？** 不能。流程是：AI 辅助产出 → 编辑四关审校 → 放行记录 → 发布。
+AI 参与在内部标注，对外按平台政策声明。
+
+**数据从哪来？** 在 `env/` 里配置你们的 CMS 与数据平台地址；分析助手按统一口径出数，
+数字必须带口径、来源和截止时间。
+
+**想加短视频/直播岗？** 配置时说一声，AI 会帮你加岗位并配置它能看到的资源。
+
+## 想要更多细节
+
+- 团队手册本体：`docs/`（品牌语调、受众画像、内容策略、指标口径）
+- English version: [README.en.md](README.en.md)

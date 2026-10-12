@@ -1,87 +1,93 @@
-# Human Resources — TeamAI Collaboration Template
+# 人力资源团队 · 团队 AI 模板
 
-A ready-to-use **team AI repository** (TeamAI team repo) for HR teams covering the full
-pipeline: **workforce planning → JD → sourcing & screening → interview → offer/onboarding →
-performance → talent development**. Drop it on any Git host, run `teamai init`, and every
-member's AI tool gets the same per-role contract, shared context, and privacy/compliance
-guards.
+> 把招聘、绩效、人才培养的流程、标准和上下文装进每个人的 AI 工具里。
+> 新同事、新开的 AI 会话，**只要说清自己的岗位，就能从任意环节开工**，
+> 并且从第一分钟起就受隐私与公平规则约束。
 
-[简体中文](README.zh-CN.md)
+## 这套模板解决什么问题
 
-## What you get
+| 以前 | 现在 |
+|---|---|
+| 招聘标准在面试官脑子里，宽严不一 | 结构化题本与评分锚点全队统一，评分必须写行为证据 |
+| JD 写法随缘，合规风险靠运气 | JD 模板 + 合规自查（禁年龄/性别/婚育限制） |
+| 绩效期末凭印象，争议不断 | 期初标准写死、期中留证据、校准会必开、结论可复核 |
+| 简历、身份证、薪酬随手转发 | PII 红线强制生效，AI 写入前预警脱敏 |
+| 新 HR 上手要带三个月 | 流程手册 + 岗位 SOP + 辅助 Agent，接手即干活 |
 
-| Layer | Where | Delivered to |
-|---|---|---|
-| **Pipeline context** — stage playbooks, org context, hiring principles, competency model, performance framework | `docs/` | every member, every AI tool |
-| **Hard red lines** — PII protection + fair-employment rules (enforced, cannot be deleted) | `rules/` | everyone |
-| **One contract per role** — recruiter / hrbp / td / hr-ops standards | `rules/<role>/` | role-scoped |
-| **Role operating skills** — recruiting, performance management, talent development, HR ops | `skills/` | role-scoped |
-| **Assist agents** — JD writer, resume screener (assist-only), interview question designer, performance coach, talent analyst, privacy reviewer | `agents/` | shared + role-scoped |
-| **Guard hooks** — session context, secret guard, PII/compensation warning guard | `hooks/`, `scripts/hooks/` | installed automatically |
+## 你会得到什么
 
-**The promise:** a new member (or a fresh agent session) only needs to know their role and
-can start from *any* stage — with privacy and fairness rules applied from the first minute.
+1. **全流程工作手册**（`docs/`）：人力需求 → JD → 简历筛选 → 面试 → Offer/入职 → 绩效评定 →
+   人才培养，每个环节有模板（招聘需求单、JD、筛选评分卡、面试评分卡、绩效评定表、IDP、复盘）。
+2. **岗位规范**（`rules/` + `skills/`）：招聘、HRBP、人才发展、HR 运营各自的标准与 SOP。
+3. **辅助 Agent**（`agents/`）：JD 撰写、简历筛选（**只辅助打分，不做录用/淘汰决定**）、
+   结构化面试题设计、绩效辅导、人才盘点分析、隐私审查。
+4. **两条强制红线**（成员删不掉）：`隐私与个人信息保护`、`公平就业与合规`。
+5. **自动守卫**（`hooks/`）：会话自动提示红线；身份证/手机号/银行卡/薪酬写入前预警脱敏。
 
-## Roles
+## 三种角色怎么用
 
-| Role id | Owns | Entry point |
-|---|---|---|
-| `recruiter` | intake, JD, sourcing, screening, interviews, offers | `docs/lifecycle/01-workforce-planning.md` |
-| `hrbp` | performance cycle, calibration, employee relations | `docs/lifecycle/06-performance.md` |
-| `td` | competency model, IDP, training, succession | `docs/lifecycle/07-talent-development.md` |
-| `hr-ops` | onboarding/offboarding, HRIS data, compliance filing | `docs/lifecycle/05-offer-onboarding.md` |
+### 你是 HR 负责人：第一次配置（全程对话，不用懂技术）
 
-## Pipeline
+1. **建仓库**：把这个模板复制成你们团队的 Git 仓库；不会操作就让 AI 帮你。
+2. **开始对话配置**：在 AI 工具里说 **「帮我配置团队」**。AI 会：
+   - 聊几句团队情况（有哪些岗位、谁负责招聘/绩效/发展、流程分几步、有什么合规红线）；
+   - 接收你手头的原资料（组织架构、岗位说明、绩效制度、职级标准、历史流程文档），
+     **先脱敏再萃取**，写进 `docs/context/`（组织现状、用人标准、职级模型、绩效框架、指标口径）；
+   - 按你的确认配置「每个岗位能看到什么」（比如薪酬相关内容最小化下发）；
+   - 生成**通俗易懂的《团队配置审阅单》**给你审阅，回答几个待确认问题、说「可以发布」。
+3. **邀请成员**：把审阅单末尾的转发话术发给同事。
 
-`01 workforce planning → 02 JD → 03 sourcing & screening → 04 interview → 05 offer/onboarding → 06 performance → 07 talent development`
+### 你是成员：3 分钟接入
 
-Two rules are enforced and non-removable:
-
-- **`rules/pii-protection.md`** — mask PII at collection, keep raw data in ATS/HRIS, honor
-  retention windows, never paste PII into prompts.
-- **`rules/fairness-compliance.md`** — prohibited interview questions, structured scoring
-  with behavioral evidence, calibration, reviewable negative decisions.
-
-Agents are **assist-only** on people decisions: they organize material, score against
-rubrics and check consistency — hiring/firing/performance conclusions stay with humans.
-
-## Quick start
-
-```bash
-# 1. Admin: copy this directory to a new Git repo and push it
-# 2. Before inviting anyone, edit:
-#    teamai.yaml            -> repo URL, reviewers
-#    env/env.yaml           -> ATS / HRIS endpoints, retention window
-#    env/secrets.yaml       -> tokens (values stay on members' machines)
-#    docs/context/          -> org-context, hiring-principles, competency-model, performance-framework
-# 3. Every member:
-teamai init https://github.com/your-org/your-teamai-repo
+```
+npm install -g teamai-cli
+# 在 AI 工具里说：
+/teamai 帮我加入团队，仓库地址是 https://github.com/your-org/your-repo
 teamai roles set recruiter    # recruiter | hrbp | td | hr-ops
-teamai pull
 ```
 
-## Customize (45 minutes)
+### 日常管理：说话就行
 
-- [ ] `teamai.yaml` — repo URL, reviewers
-- [ ] `manifest/roles.yaml` — roles for your org (e.g. add `c&b` → use `comp`)
-- [ ] `docs/context/competency-model.md` — your job levels and behaviors
-- [ ] `docs/context/performance-framework.md` — your cycle, weights, rating scale
-- [ ] `docs/context/glossary.md` — your funnel and talent metric definitions
-- [ ] `env/env.yaml` — `DATA_RETENTION_DAYS` and endpoints (check local law first)
-- [ ] `docs/templates/` — interview rounds, approval chains
+「/teamai 帮我管理团队」可发布/更新规范与文档、管理成员与岗位、配置数据源与环境变量。
 
-## Repository layout
+## 全流程
 
-```text
-teamai.yaml            team config
-manifest/roles.yaml    role -> namespace mapping
-docs/                  pipeline stages, templates, org/status/standards context
-rules/                 collaboration + PII + fairness (enforced) + role standards
-skills/                SOPs per role/stage
-agents/                assist agents (never decision-makers on people outcomes)
-hooks/ + scripts/      session-context, guard-secrets, guard-pii
-env/                   shared variables + secret declarations
-models/ mcp/           model aliases, MCP servers
-```
+| 环节 | 做什么 | 主责 | 产出（模板） |
+|---|---|---|---|
+| 1 人力需求 | HC、成功画像、必备项 ≤ 3 | hrbp + recruiter | 招聘需求单 |
+| 2 JD | 使命、职责、要求、合规自查 | recruiter | JD |
+| 3 筛选 | 渠道、评分卡、盲审 | recruiter | 筛选评分卡 |
+| 4 面试 | 结构化面试、STAR、评分证据 | recruiter + 面试官 | 面试评分卡 |
+| 5 Offer/入职 | 三核、背调授权、入职清单 | recruiter + hr-ops | Offer 检查单 |
+| 6 绩效评定 | 目标、评定、校准、反馈 | hrbp | 绩效评定表 |
+| 7 人才培养 | 盘点、IDP、培训、继任 | td | IDP |
 
-Requires [teamai-cli](https://www.npmjs.com/package/teamai-cli) (`npm install -g teamai-cli`).
+招聘漏斗、绩效周期、培养计划的现状永远看 `docs/context/current-status.md`。
+
+## 岗位
+
+| 岗位 | 负责 | 拿到的规范与助手 |
+|---|---|---|
+| `recruiter` 招聘 | 需求到 Offer 全程 | 招聘 SOP、JD 撰写、简历筛选辅助 |
+| `hrbp` HRBP | 绩效周期、校准、员工关系 | 绩效 SOP、绩效辅导助手 |
+| `td` 人才发展 | 胜任力、IDP、培训、继任 | 发展 SOP、人才分析助手 |
+| `hr-ops` 运营 | 入离职、主数据、合规档案 | 运营 SOP |
+
+## 常见问题
+
+**AI 会替我们做录用/绩效决定吗？** 不会。Agent 只做材料整理、按评分卡打分、一致性检查；
+录用、淘汰、绩效结论由人拍板，且负面决定必须有书面依据可复核。
+
+**简历、身份证、薪酬怎么保护？** 红线规则强制生效：共享文档必须脱敏（138****1234、
+110***********1234），原始数据只留在 ATS/HRIS；AI 写入前会预警；留存与删除按
+`DATA_RETENTION_DAYS` 执行（默认 180 天，改前先核对当地法规）。
+
+**面试公平怎么保证？** 同岗同维度同锚点；提问禁区（婚育/民族/宗教/政治等）写在强制规则里；
+评分必须写行为证据；绩效校准会必开。
+
+**想加薪酬绩效岗？** 配置时说一声（建议 id 用 `comp`），AI 会配置好它的可见资源。
+
+## 想要更多细节
+
+- 团队手册本体：`docs/`（组织现状、用人标准、职级模型、绩效框架、指标口径）
+- English version: [README.en.md](README.en.md)

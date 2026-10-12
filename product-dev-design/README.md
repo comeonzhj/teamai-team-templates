@@ -1,98 +1,104 @@
-# Product + Design + Engineering — TeamAI Collaboration Template
+# 产品 + 研发 + 设计 协作 · 团队 AI 模板
 
-A ready-to-use **team AI repository** (TeamAI team repo) for product/design/engineering
-teams. Drop it on any Git host, run `teamai init`, and every member's AI coding tool
-gets the same collaboration contract — per role — plus the team's full-lifecycle context.
+> 把团队的流程、规范和项目上下文装进每个人的 AI 工具里。
+> 新成员、新开的 AI 会话，**只要说清自己的岗位，就能从任意阶段开工**——不需要谁再介绍一遍背景。
 
-[简体中文](README.zh-CN.md)
+## 这套模板解决什么问题
 
-## What you get
+| 以前 | 现在 |
+|---|---|
+| 新人上手要找三个人、翻五个文档 | AI 会话自动带上项目现状、阶段手册和岗位规范 |
+| 每个人的 AI 各说各话、各有各的习惯 | 同一岗位的 Agent 用同一套规范（需求怎么写、评审看什么） |
+| 流程在群里、结论在聊天记录里 | 状态只有一份文档，决策条条留痕，人人可见 |
+| 靠自觉守规矩（密钥、隐私、红线） | AI 会话自动拦截凭据泄露、提示隐私风险 |
 
-| Layer | Where | Delivered to |
-|---|---|---|
-| **Full-lifecycle context** — stage playbooks, live status, decision log, templates | `docs/` | every member, every AI tool |
-| **One contract per role** — always-on rules (red lines, standards) | `rules/`, `rules/<role>/` | shared + role-scoped |
-| **Role operating skills** — step-by-step SOPs | `skills/common/`, `skills/<role>/` | role-scoped |
-| **Review agents** — PRD / design / code / test-plan reviewers | `agents/`, `agents/<role>/` | shared + role-scoped |
-| **Guard hooks** — session context injection, secret & PII guards | `hooks/`, `scripts/hooks/` | installed automatically |
-| **Env & secrets** — shared variables, per-member secrets | `env/` | via `teamai env exec` |
+## 你会得到什么
 
-**The promise:** a new member (or a fresh agent session) only needs to know their role
-and can start working from *any* stage — no background briefing required.
+1. **全流程工作手册**（`docs/`）：需求发现 → 需求定义 → 设计 → 开发 → 测试 → 发布 → 复盘，
+   每个阶段写清「进入条件、怎么做、产出什么、怎么算完成、交给谁」，产出物都有现成模板。
+2. **岗位规范**（`rules/` + `skills/`）：产品、设计、研发、测试各自的红线与工作 SOP，
+   只下发给对应岗位的人。
+3. **评审助手**（`agents/`）：PRD 评审、设计走查、代码评审、测试方案评审、交接包检查、上下文维护。
+4. **自动守卫**（`hooks/`）：每次会话自动注入上下文指引；凭据泄露直接拦截；隐私信息写入前预警。
 
-## Roles
+## 三种角色怎么用
 
-| Role id | Owns | Key entry point |
-|---|---|---|
-| `pm` | requirement discovery, PRD, acceptance | `docs/lifecycle/01-discovery.md` |
-| `design` | interaction & visual design, design system | `docs/lifecycle/03-design.md` |
-| `dev` | technical design, implementation, release | `docs/lifecycle/04-development.md` |
-| `qa` | test strategy, defects, release gate | `docs/lifecycle/05-testing.md` |
+### 你是团队负责人：第一次配置（全程对话，不用懂技术）
 
-## Lifecycle
+1. **建仓库**：把这个模板复制成你们团队的 Git 仓库（GitHub / GitLab / TGit / CNB 都可以）。
+   不会操作就让 AI 帮你：把这段话发给你的 AI 工具即可——
 
-`01 discovery → 02 definition → 03 design → 04 development → 05 testing → 06 release → 07 retro`
+   > 帮我把这个模板目录变成我们团队的团队仓库：复制到一个新 Git 仓库并推送到 <你的平台>，
+   > 然后开始帮我配置。
 
-Every stage doc (`docs/lifecycle/`) states its entry conditions, key actions, outputs,
-definition of done, and handoff — so anyone can pick up work mid-stream. Handoffs follow
-the `stage-handoff` skill so downstream never has to chase missing context.
+2. **开始对话配置**：在 AI 工具里说 **「帮我配置团队」**。AI 会按 `team-setup` 助手引导你：
+   - 聊几句团队情况（有哪些岗位、每个人负责什么、流程分几步、有什么红线）；
+   - 把手头资料丢给它（产品介绍、制度、会议纪要、旧文档、聊天记录都行），
+     它会萃取出团队上下文写进 `docs/context/`；
+   - 你确认「每个岗位能看到什么、能用什么」，它写好权限配置；
+   - 最后生成一份**通俗易懂的《团队配置审阅单》**，你看一遍、回答几个待确认问题、说「可以发布」。
+3. **邀请成员**：把审阅单末尾那段转发话术发给同事就行。
 
-## Quick start
+### 你是普通成员：3 分钟接入
 
-```bash
-# 1. Admin: copy this directory to a new Git repo and push it
-#    (GitHub / GitLab / TGit / CNB / any private Git host, members need write access)
+```
+# 1. 安装（一次性）
+npm install -g teamai-cli
 
-# 2. Edit before inviting anyone
-#    teamai.yaml        -> repo: URL, reviewers
-#    env/env.yaml       -> your shared variables
-#    env/secrets.yaml   -> the secrets your tools need
-#    docs/context/      -> your product overview, glossary, status
+# 2. 在你的 AI 工具里说：
+/teamai 帮我加入团队，仓库地址是 https://github.com/your-org/your-repo
 
-# 3. Every member
-teamai init https://github.com/your-org/your-teamai-repo   # project scope (default)
-teamai roles set pm                                         # pm | design | dev | qa
-teamai pull
+# 3. 认领你的岗位（产品 / 设计 / 研发 / 测试）
+teamai roles set pm
 ```
 
-Members then open their AI tool as usual — skills, rules, agents, docs and hooks arrive
-automatically and stay up to date on every pull.
+之后你什么都不用做：规范、文档、助手、守卫自动到位，每次更新自动同步。
 
-## How the context system works
+### 你要做日常管理：继续说话就行
 
-1. `docs/context/current-status.md` is the **single source of truth** for what is in
-   flight. Every session is pointed at it by the `session-context` hook.
-2. `docs/context/decisions.md` records every binding decision (append-only).
-3. `docs/lifecycle/<stage>.md` + `docs/templates/` define how work is produced at each
-   stage — outputs always use the templates, never ad-hoc structures.
-4. The `context-hygiene` rule (enforced) makes updating status/decisions part of the
-   definition of done.
+teamai 自带对话入口 `/teamai` 覆盖日常管理：发布/更新规范与文档、管理成员与岗位、
+配置工具与环境变量、打开团队看板。例如说「/teamai 帮我管理团队」「把这个 skill 分享给团队」。
 
-## Customize for your team (30 minutes)
+## 团队工作全流程
 
-- [ ] `teamai.yaml` — repo URL, reviewers, enforced rules
-- [ ] `manifest/roles.yaml` — rename/split roles (e.g. `dev` → `dev-frontend`/`dev-backend`)
-- [ ] `docs/context/product-overview.md` — your product, users, metrics
-- [ ] `docs/context/glossary.md` — your terms and metric definitions
-- [ ] `env/env.yaml`, `env/secrets.yaml`, `mcp/mcp.yaml` — your endpoints and tools
-- [ ] `models/aliases.yaml` — models available in your org
-- [ ] `rules/`, `skills/` — tune thresholds (CR size, response SLA, defect grades)
-- [ ] `hooks/hooks.yaml` — keep, drop or extend the three guards
+| 阶段 | 做什么 | 主责 | 产出（模板） |
+|---|---|---|---|
+| 1 需求发现 | 问题定义、证据、价值假设 | 产品 | 需求卡片 |
+| 2 需求定义 | PRD、验收标准、三方评审 | 产品 | PRD / 需求卡片 |
+| 3 设计 | 简报、方案探索、走查、交付包 | 设计 | 设计简报 |
+| 4 开发 | 技术方案、编码、代码评审 | 研发 | 技术方案 |
+| 5 测试 | 测试方案、用例、缺陷、回归 | 测试 | 测试方案 |
+| 6 发布 | 发布检查单、灰度、守夜、验收 | 研发 + 产品 + 测试 | 发布检查单 |
+| 7 复盘 | 数据回顾、根因、改进、沉淀 | 全员 | 复盘报告 |
 
-## Repository layout
+每个阶段的详细手册在 `docs/lifecycle/`；项目现状永远看 `docs/context/current-status.md`。
 
-```text
-teamai.yaml            team config (sharing policy, post-pull hook deploy)
-manifest/roles.yaml    role -> namespace mapping (what each role receives)
-docs/                  shared context: lifecycle, templates, status, decisions
-rules/                 always-on norms (root = shared, <role>/ = role-scoped)
-skills/                operating SOPs (common/ = all roles, <role>/ = per role)
-agents/                subagents (root = shared, <role>/ = per role)
-hooks/hooks.yaml       team hooks (session context, secret guard, PII guard)
-scripts/               hook scripts + post-pull deployer
-env/                   shared variables + secret declarations
-models/aliases.yaml    model aliases (strong / fast per tool)
-mcp/mcp.yaml           MCP servers (empty by default, examples included)
-```
+## 岗位
 
-Requires [teamai-cli](https://www.npmjs.com/package/teamai-cli) (`npm install -g teamai-cli`).
+| 岗位 | 负责 | 拿到的规范与助手 |
+|---|---|---|
+| `pm` 产品 | 需求、PRD、验收 | 需求分析 SOP、PRD 评审助手 |
+| `design` 设计 | 交互与视觉、设计系统 | 设计工作流、设计评审助手 |
+| `dev` 研发 | 技术方案、开发、发布 | 研发工作流、代码评审助手 |
+| `qa` 测试 | 测试策略、缺陷、发布门禁 | 质量工作流、测试方案评审助手 |
+
+（岗位不够用？在配置时告诉 AI，它会帮你加，比如把研发拆成前端/后端。）
+
+## 常见问题
+
+**一定要用这些 AI 工具吗？** 不挑工具。Claude、Codex、Cursor、CodeBuddy、OpenCode 等
+主流工具都支持，规范会自动翻译成各家的格式。
+
+**资料会被传到哪？** 团队资料只在你们自己的 Git 仓库里；凭据不会进仓库（用 `teamai env set`
+各自保存在本机）；隐私数据有守卫提醒脱敏。
+
+**改规范麻烦吗？** 不麻烦：说「/teamai 帮我更新 XX 规范」，AI 改好后走一次发布，全员自动收到。
+
+**只想改几句话也要走流程吗？** 小改动直接说，AI 会引导你完成；红线规范（协作公约、上下文维护）
+受保护，成员删不掉。
+
+## 想要更多细节
+
+- 中文详细说明：本目录其他文档（`docs/` 是团队手册本体）
+- English version: [README.en.md](README.en.md)
+- 技术结构与定制清单：见 `docs/README.md` 与 `manifest/roles.yaml` 内注释

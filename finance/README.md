@@ -1,86 +1,92 @@
-# Finance — TeamAI Collaboration Template
+# 财务团队 · 团队 AI 模板
 
-A ready-to-use **team AI repository** (TeamAI team repo) for finance teams covering the full
-pipeline: **budgeting → transaction & expense audit → monthly close → tax filing →
-reporting & analysis → internal control & audit**. Drop it on any Git host, run
-`teamai init`, and every member's AI tool gets the same per-role contract, shared context,
-and accuracy/controls discipline.
+> 把预算、核算、税务、资金的流程、口径和内控纪律装进每个人的 AI 工具里。
+> 新同事、新开的 AI 会话，**只要说清自己的岗位，就能从任意环节开工**，
+> 并且从第一分钟起就受数字准确性与内控规则约束。
 
-[简体中文](README.zh-CN.md)
+## 这套模板解决什么问题
 
-## What you get
+| 以前 | 现在 |
+|---|---|
+| 口径散落在个人经验里，报表对不齐 | 会计政策与指标口径只有一份真源，数字必须带口径/来源/截止时间 |
+| 关账靠人催、节点靠记性 | 关账日历 + 状态看板，节点人人可见，变更必须留痕 |
+| 账税差异在申报表里"消失" | 账税差异台账强制登记，差异三选一处置，禁止静默抹平 |
+| 内控靠自觉，审计来了一头汗 | 职责分离、审批权限、证据链写成强制规则，AI 辅助抽检查缺 |
+| 新人接手要问一圈 | 流程手册 + 岗位 SOP + 辅助 Agent，接手即干活 |
 
-| Layer | Where | Delivered to |
-|---|---|---|
-| **Pipeline context** — stage playbooks, close calendar, accounting policy, finance policy, metric definitions | `docs/` | every member, every AI tool |
-| **Hard red lines** — financial controls (segregation of duties, approvals, evidence) + accuracy discipline (enforced) | `rules/` | everyone |
-| **One contract per role** — accounting / fpna / tax / treasury standards | `rules/<role>/` | role-scoped |
-| **Role operating skills** — monthly close, budgeting & forecast, tax compliance, treasury & controls | `skills/` | role-scoped |
-| **Review agents** — reconciliation checker, internal-control reviewer, voucher auditor, budget analyst, tax advisor (advisory), cash forecaster | `agents/` | shared + role-scoped |
-| **Guard hooks** — session context, secret guard, bank-card/PII guard | `hooks/`, `scripts/hooks/` | installed automatically |
+## 你会得到什么
 
-**The promise:** a new member (or a fresh agent session) only needs to know their role and
-can start from *any* stage — with the numbers discipline and control rules applied from the
-first minute.
+1. **全流程工作手册**（`docs/`）：预算 → 费用审核 → 核算月结 → 税务申报 → 分析报告 → 内控审计，
+   每个环节有模板（预算包、费用审核清单、记账凭证、月结清单、申报清单、经营报告、差异分析）。
+2. **岗位规范**（`rules/` + `skills/`）：核算、FP&A、税务、资金各自的标准与 SOP。
+3. **辅助 Agent**（`agents/`）：对账勾稽、内控审查、凭证审核、预算与差异分析、税务辅助、现金流预测。
+4. **两条强制红线**（成员删不掉）：`内控与保密`（职责分离/审批/证据链/数据保密）、
+   `数字准确性纪律`（口径/来源/截止时间、先对账后出数）。
+5. **自动守卫**（`hooks/`）：会话自动注入节点与口径提示；凭据泄露拦截；银行卡/身份证/薪酬预警脱敏。
 
-## Roles
+## 三种角色怎么用
 
-| Role id | Owns | Entry point |
-|---|---|---|
-| `accounting` | GL, AR/AP, expense audit, monthly close | `docs/lifecycle/03-monthly-close.md` |
-| `fpna` | budgeting, rolling forecast, variance, reporting | `docs/lifecycle/01-budgeting.md` |
-| `tax` | filings, invoicing, tax risk and planning | `docs/lifecycle/04-tax-filing.md` |
-| `treasury` | cash management, banking, internal control & audit | `docs/lifecycle/06-internal-control.md` |
+### 你是财务负责人：第一次配置（全程对话，不用懂技术）
 
-## Pipeline
+1. **建仓库**：把这个模板复制成你们团队的 Git 仓库；不会操作就让 AI 帮你。
+2. **开始对话配置**：在 AI 工具里说 **「帮我配置团队」**。AI 会：
+   - 聊几句团队情况（岗位分工、关账/申报节点、制度与审批权限、保密要求）；
+   - 接收你手头的原资料（会计政策、科目表、制度、关账日历、报表模板、历史口径讨论），
+     **先脱敏再萃取**，写进 `docs/context/`（会计政策、财务制度、关账日历、指标口径）；
+   - 按你的确认配置「每个岗位能看到什么」（敏感数据最小化下发）；
+   - 生成**通俗易懂的《团队配置审阅单》**给你审阅，回答几个待确认问题、说「可以发布」。
+3. **邀请成员**：把审阅单末尾的转发话术发给同事。
 
-`01 budgeting → 02 transaction & expense audit → 03 monthly close → 04 tax filing → 05 reporting & analysis → 06 internal control`
+### 你是成员：3 分钟接入
 
-Two rules are enforced and non-removable:
-
-- **`rules/financial-controls.md`** — segregation of duties, approval limits, evidence
-  chains (voucher → document → approval), data confidentiality; agents never pay, never
-  file, never post entries.
-- **`rules/accuracy-discipline.md`** — every number carries definition + source + as-of
-  date; reconcile before reporting; no silent rounding; audit trail always complete.
-
-## Quick start
-
-```bash
-# 1. Admin: copy this directory to a new Git repo and push it
-# 2. Before inviting anyone, edit:
-#    teamai.yaml            -> repo URL, reviewers
-#    env/env.yaml           -> ERP / bank / tax endpoints, reporting currency
-#    env/secrets.yaml       -> tokens (read-only accounts; values stay on machines)
-#    docs/context/          -> finance-policy, accounting-standards, close-calendar, glossary
-# 3. Every member:
-teamai init https://github.com/your-org/your-teamai-repo
+```
+npm install -g teamai-cli
+# 在 AI 工具里说：
+/teamai 帮我加入团队，仓库地址是 https://github.com/your-org/your-repo
 teamai roles set accounting    # accounting | fpna | tax | treasury
-teamai pull
 ```
 
-## Customize (45 minutes)
+### 日常管理：说话就行
 
-- [ ] `teamai.yaml` — repo URL, reviewers
-- [ ] `docs/context/accounting-standards.md` — your accounting policy and account mapping
-- [ ] `docs/context/finance-policy.md` — expense standards and approval limits
-- [ ] `docs/context/close-calendar.md` — your close and filing deadlines
-- [ ] `docs/context/glossary.md` — your metric definitions (the single source of truth for metric definitions)
-- [ ] `env/env.yaml` / `env/secrets.yaml` — systems and read-only credentials
-- [ ] `docs/templates/` — voucher, close and filing checklists for your ERP
+「/teamai 帮我管理团队」可发布/更新规范与文档、管理成员与岗位、配置 ERP/银行/税务数据源。
 
-## Repository layout
+## 全流程
 
-```text
-teamai.yaml            team config
-manifest/roles.yaml    role -> namespace mapping
-docs/                  pipeline stages, templates, policy/calendar/status context
-rules/                 collaboration + controls + accuracy (enforced) + role standards
-skills/                SOPs per role/stage
-agents/                reconciliation, controls, voucher, budget, tax, cash agents
-hooks/ + scripts/      session-context, guard-secrets, guard-pii
-env/                   shared variables + secret declarations
-models/ mcp/           model aliases, MCP servers
-```
+| 环节 | 做什么 | 主责 | 产出（模板） |
+|---|---|---|---|
+| 1 预算与预测 | 假设驱动编制、滚动预测、敏感性 | fpna | 预算包 |
+| 2 费用与交易审核 | 真实/合规/完整/权限四关 | accounting | 费用审核清单 |
+| 3 核算与月结 | cut-off、四类对账、试算平衡 | accounting | 月结清单 |
+| 4 税务申报 | 计税勾稽、优惠适用、账税差异 | tax | 申报清单 |
+| 5 分析与报告 | 量价拆解、差异解释、经营报告 | fpna | 经营报告 / 差异分析 |
+| 6 内控与审计 | 控制抽测、缺陷整改、审计配合 | treasury | （内控矩阵） |
 
-Requires [teamai-cli](https://www.npmjs.com/package/teamai-cli) (`npm install -g teamai-cli`).
+关账、申报、审计的现状与节点永远看 `docs/context/current-status.md` 与 `close-calendar.md`。
+
+## 岗位
+
+| 岗位 | 负责 | 拿到的规范与助手 |
+|---|---|---|
+| `accounting` 核算 | 总账、往来、费用、月结 | 核算 SOP、月结工作流、凭证审核助手 |
+| `fpna` 预算分析 | 预算、预测、差异、报告 | FP&A SOP、预算与差异分析助手 |
+| `tax` 税务 | 申报、发票、税务风险 | 税务 SOP、税务辅助（仅供参考） |
+| `treasury` 资金 | 现金、银行、内控、审计 | 资金 SOP、现金流预测助手、内控审查助手 |
+
+## 常见问题
+
+**AI 会动钱、报税、改账吗？** 不会。这是写进强制规则的红线：Agent 只做核对、勾稽、草拟、
+差异分析；付款指令、申报提交、入账永远由人执行，制单 + 复核双人负责照旧。
+
+**数字怎么保证可信？** 数字三要素（口径、来源、截止时间）+ 先对账后出数 + 差异必须处置
+（更正/挂账待查/重要性豁免，三选一并写依据）；AI 产出的数字必须可溯源，否则标「待核对」。
+
+**敏感数据安全吗？** 凭据不进仓库（`teamai env set` 本机保存、`teamai env exec` 使用，
+推荐只读账号）；银行账号掩码、薪酬与未公开数据按需知传播；写入前有守卫预警。
+
+**税务建议可靠吗？** 税务 Agent 的输出**仅供参考、不构成正式税务意见**，须经税务负责人确认；
+申报提交永远由人执行。
+
+## 想要更多细节
+
+- 团队手册本体：`docs/`（会计政策、财务制度、关账日历、指标口径）
+- English version: [README.en.md](README.en.md)
