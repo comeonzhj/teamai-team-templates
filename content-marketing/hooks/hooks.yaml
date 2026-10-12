@@ -1,0 +1,23 @@
+# 团队 hooks：pull 后自动分发到各 AI 工具；脚本部署到 ~/.teamai/team-scripts/
+hooks:
+  - id: session-context
+    description: Every session starts from the team's live content pipeline context
+    event: SessionStart
+    command: 'bash -lc "~/.teamai/team-scripts/session-context.sh"'
+    timeout: 10
+
+  - id: guard-secrets
+    description: Block a tool call that would leak a credential
+    event: PreToolUse
+    matcher: Bash|Write|Edit
+    command: 'bash -lc "~/.teamai/team-scripts/guard-secrets.sh"'
+    timeout: 15
+
+  - id: guard-claims
+    description: Warn on absolute/promotional claims that break advertising law and brand rules
+    event: PreToolUse
+    matcher: Write|Edit
+    command: 'bash -lc "~/.teamai/team-scripts/guard-claims.sh" || true'
+    timeout: 15
+
+# 成员本地紧急关闭：TEAMAI_HOOKS_DISABLED=1

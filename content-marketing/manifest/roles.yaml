@@ -1,0 +1,33 @@
+# 岗位（role）定义：决定每个成员的 Agent 收到哪些 skills / rules / agents
+# 成员加入后执行：teamai roles set strategy（或 writer / editor / ops，可逗号选多个）
+version: 1
+roles:
+  - id: strategy
+    description: Content strategist — topic selection, content calendar, competitive gap analysis
+    resources:
+      knowledge: [strategy]
+      skills: [common, strategy]
+      agents: [strategy]
+
+  - id: writer
+    description: Content writer — research synthesis, outline, drafting, SEO structure
+    resources:
+      knowledge: [writer]
+      skills: [common, writer]
+      agents: [writer]
+
+  - id: editor
+    description: Editor — fact checking, language editing, compliance and copyright review
+    resources:
+      knowledge: [editor]
+      skills: [common, editor]
+      agents: [editor]
+
+  - id: ops
+    description: Content operations — distribution, channel tuning, analytics and retro
+    resources:
+      knowledge: [ops]
+      skills: [common, ops]
+      agents: [ops]
+
+# 扩展建议：渠道专岗（如 video / social）可加 role id：video，并建 rules/video/ skills/video/

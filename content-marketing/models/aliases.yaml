@@ -1,0 +1,11 @@
+# 模型别名：agent 里只写 model: strong / model: fast，具体型号在这里按工具映射。
+# 改成你组织实际可用的型号；未列出的工具用它自己的默认模型。
+# 规则：strong / fast 是保留名；自定义别名必须小写字母开头 + 小写字母/数字/连字符。
+aliases:
+  strong:
+    claude: { model: opus, effort: high }
+    codex: { model: gpt-5-codex, effort: high }
+    opencode: anthropic/claude-opus-5
+  fast:
+    claude: haiku
+    codex: { model: gpt-5-codex, effort: low }

@@ -1,0 +1,32 @@
+# TeamAI 团队仓库配置 — 内容营销团队
+team: content-marketing
+description: >-
+  Content marketing team. Full pipeline context (topic -> research -> creation -> review
+  -> distribution -> retro), one collaboration contract per role, review agents and
+  compliance guards.
+repo: https://github.com/your-org/content-marketing-teamai.git   # TODO: 改成你的团队仓库地址
+provider: github
+
+reviewers:
+  - content-lead               # TODO: PR/MR 审核人
+
+sharing:
+  rules:
+    enforced:                  # 强制规则：成员 pull 后不可删除
+      - collaboration-charter
+      - content-safety
+  docs:
+    localDir: ./.teamai/docs
+  env:
+    injectShellProfile: true
+  gitExclude:
+    enabled: true
+  hooks:
+    autoApply: true
+    requireTeamScripts: true   # 只执行 ~/.teamai/team-scripts/ 下的脚本
+  contributeHint:
+    enabled: true              # 爆款/翻车经验及时沉淀
+
+scripts:
+  postPull:
+    path: scripts/deploy-hooks.mjs   # pull 后把 scripts/hooks/*.sh 部署到 ~/.teamai/team-scripts/
